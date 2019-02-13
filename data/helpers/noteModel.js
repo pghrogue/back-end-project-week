@@ -16,6 +16,7 @@ module.exports = {
     return db('notes').insert(note);
   },
 
+  // This would not work in ES6 format.
   update: function(id, newNote) {
     // Edit note and return new note.
     return db('notes').where('noteId', id)
