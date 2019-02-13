@@ -6,6 +6,10 @@ const router = express.Router();
 const notes = require('../data/helpers/noteModel');
 
 /* ---------- Endpoints: ---------- */
+// Default route
+router.get( '/', (req, res) => {
+  res.json({ message: "Api online" });
+});
 
 // GET list of notes: /note/get/all
 router.get( '/get/all', (req, res) => {
