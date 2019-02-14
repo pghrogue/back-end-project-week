@@ -51,7 +51,21 @@ describe('the /note routes', () => {
         .send(body);
   
       expect(response.body).toEqual([4]);
+      expect(response.type).toBe('application/json');
+      expect(response.body).not.toEqual({ error: "Could not post new note." });
     });
-  });
 
-});
+    test('missing title returns an error', async () => {
+      const body = { textBody: "test body" };
+
+      const response = await request(server)
+        .post('/note/create')
+        .send(body);
+
+      expect(response.status).toEqual(400);
+      expect(response.body).toEqual({error: "Please provide title and body of the note."});
+    });
+
+  }); // End of /note/create
+
+}); // End of /note routes
