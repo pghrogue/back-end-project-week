@@ -112,9 +112,14 @@ describe('the /note routes', () => {
   }); // End of /note/edit
 
   describe('DELETE /note/delete/id', () => {
-    it('deletes a note', async () => {});
+    it('deletes a note', async () => {
+      const response = await request(server)
+        .delete('/note/delete/3');
 
-    it('cannot delete a missing note', async () => {});
+      expect(response.status).toEqual(200);
+      expect(response.body).toEqual({success: "Note successfully deleted"});
+    });
+
   }); // End of /note/delete
 
 }); // End of /note routes
