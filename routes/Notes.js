@@ -15,7 +15,11 @@ router.get( '/', (req, res) => {
 router.get( '/get/all', (req, res) => {
   notes.get()
     .then( (list) => {
-      res.json(list);
+      if( list.length > 0 ){
+        res.json(list);
+      } else {
+        res.status(204).json({ error: "Notes were not found."})
+      }
     })
     .catch( (err) => {
       res.status(500).json({ error: "Note information could not be retrieved." });

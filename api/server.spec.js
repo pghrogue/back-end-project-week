@@ -1,6 +1,9 @@
 const request = require('supertest');
 const server = require('./server.js');
 
+const knex = require('knex');
+const dbConfig = require('../knexfile');
+const db = knex(dbConfig.testing);
 
 // Test to make sure test server is running ok.
 describe('server.js', () => {
@@ -33,4 +36,22 @@ describe('the /note routes', () => {
     expect(response.type).toBe('application/json');
     expect(response.body).not.toEqual({ error: `Note 1 could not be found.` });
   });
+
+  describe('POST /note/create', () => {
+    afterEach( async () => {
+      await db.seed.run();
+    });
+    
+    test('creates a note', async () => {
+      
+      const body = { title: "test", textBody: "test body" };
+  
+      const response = await request(server)
+        .post('/note/create')
+        .send(body);
+  
+      expect(response.body).toEqual([4]);
+    });
+  });
+
 });

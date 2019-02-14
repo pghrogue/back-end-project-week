@@ -3,13 +3,18 @@ const db = require('../dbConfig');
 module.exports = {
   get: (id) => {
     if( id ) {
+      console.log('get id found:', id );
       // Will return the note with the specified ID
       return db('notes').where('noteId', id).first();
     } else {
+      console.log('get id not found');
       // Will return a list of all notes
       return db('notes');
     }
   },
+  // get: function(id) {
+  //   return db('notes');
+  // },
 
   insert: (note) => {
     // Create a new note and return the ID
