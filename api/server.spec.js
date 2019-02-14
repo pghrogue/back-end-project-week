@@ -71,11 +71,44 @@ describe('the /note routes', () => {
   }); // End of /note/create
 
   describe('PUT /note/edit/id', () => {
-    test('it errors if note is not found', async () => {});
+    test('it errors if note is not found', async () => {
+      const body = { title: "editted", textBody: "body edit" };
 
-    test('missing body returns an error', async () => {});
+      const response = await request(server)
+        .put('/note/edit/5')
+        .send(body);
 
-    it('edits an existing note', async () => {});
+      expect(response.status).toEqual(404);
+      expect(response.body).toEqual({error: "Note not found."});
+    });
+
+    test('missing body returns an error', async () => {
+      const body = { title: "editted" };
+
+      const response = await request(server)
+        .put('/note/edit/1')
+        .send(body);
+
+      expect(response.status).toEqual(400);
+      expect(response.body).toEqual({error: "Please provide the title and the body."});
+    });
+
+    it('edits an existing note', async () => {
+      const body = { title: "editted", textBody: "editted body" };
+      const expected = {
+        "noteId": 1,
+        "textBody": "editted body",
+        "title": "editted",
+        "userId": 1,
+      };
+
+      const response = await request(server)
+        .put('/note/edit/1')
+        .send(body);
+
+      expect(response.status).toEqual(200);
+      expect(response.body).toEqual(expected);
+    });
   }); // End of /note/edit
 
   describe('DELETE /note/delete/id', () => {
