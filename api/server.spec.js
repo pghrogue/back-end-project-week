@@ -21,21 +21,23 @@ describe('the /note routes', () => {
     expect(response.status).toEqual(200);
   });
 
-  test('/note/get/all returns an object list', async () => {
-    const response = await request(server).get('/note/get/all');
-
-    expect(response.status).toEqual(200);
-    expect(response.type).toBe('application/json');
-    expect(response.body).not.toEqual({ error: "Note information could not be retrieved." });
-  });
-
-  test('/note/get/id returns a note', async () => {
-    const response = await request(server).get('/note/get/1');
-
-    expect(response.status).toEqual(200);
-    expect(response.type).toBe('application/json');
-    expect(response.body).not.toEqual({ error: `Note 1 could not be found.` });
-  });
+  describe('GET /note/get', () => {
+    test('/note/get/all returns an object list', async () => {
+      const response = await request(server).get('/note/get/all');
+  
+      expect(response.status).toEqual(200);
+      expect(response.type).toBe('application/json');
+      expect(response.body).not.toEqual({ error: "Note information could not be retrieved." });
+    });
+  
+    test('/note/get/id returns a note', async () => {
+      const response = await request(server).get('/note/get/1');
+  
+      expect(response.status).toEqual(200);
+      expect(response.type).toBe('application/json');
+      expect(response.body).not.toEqual({ error: `Note 1 could not be found.` });
+    });  
+  }); // End of /note/get
 
   describe('POST /note/create', () => {
     afterEach( async () => {
@@ -67,5 +69,19 @@ describe('the /note routes', () => {
     });
 
   }); // End of /note/create
+
+  describe('PUT /note/edit/id', () => {
+    test('it errors if note is not found', async () => {});
+
+    test('missing body returns an error', async () => {});
+
+    it('edits an existing note', async () => {});
+  }); // End of /note/edit
+
+  describe('DELETE /note/delete/id', () => {
+    it('deletes a note', async () => {});
+
+    it('cannot delete a missing note', async () => {});
+  }); // End of /note/delete
 
 }); // End of /note routes
