@@ -21,9 +21,11 @@ class Notes extends Component {
 
   // Pull all notes from the API
   componentDidMount() {
-    axios.get(`https://fe-notes.herokuapp.com/note/get/all`)
+    axios.get(`http://localhost:1234/note/get/all`)
       .then( (response) => {
+        console.log('response data: ', response.data);
         this.setState( () => ({ notes: response.data }) )
+        console.log('state', this.state);
       })
       .catch( (error) => console.error(error) );
   };
@@ -34,7 +36,7 @@ class Notes extends Component {
         <h2>Your Notes:</h2>
         <div className="noteList">
           {this.state.notes.map( (note) => {
-            return (<Note key={note._id} title={note.title} textBody={note.textBody} id={note._id} />);
+            return (<Note key={note.noteId} title={note.title} textBody={note.textBody} id={note.noteId} />);
           })}
         </div>
       </div>

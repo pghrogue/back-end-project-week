@@ -16,7 +16,7 @@ class Note extends Component {
     super(props);
 
     /* note{}:
-     *  _id: 0
+     *  noteId: 0
      *  textBody: ""
      *  title: ""
      */
@@ -28,7 +28,7 @@ class Note extends Component {
 
   /* Need to pull the individula note from axios GET */
   componentDidMount() {
-    axios.get(`https://fe-notes.herokuapp.com/note/get/${this.props.match.params.id}`)
+    axios.get(`http://localhost:1234/note/get/${this.props.match.params.id}`)
       .then( (response) => {
         this.setState( () => ({ note: response.data }) )
       })
@@ -48,7 +48,7 @@ class Note extends Component {
 
   /* Deletion was confirmed, now delete it from the API */
   confirmedDelete = (event) => {
-    axios.delete(`https://fe-notes.herokuapp.com/note/delete/${this.props.match.params.id}`)
+    axios.delete(`http://localhost:1234/note/delete/${this.props.match.params.id}`)
       .then( () => {
         this.setState( () => ({ redirect: true }) );
       })
@@ -73,8 +73,8 @@ class Note extends Component {
       </div>
       <div className="viewNote">
         <div className="noteLinks">
-          <Link to={`/edit/${this.state.note._id}`}>edit</Link>
-          <Link to={`/delete/${this.state.note._id}`} onClick={this.handleDelete}>delete</Link>
+          <Link to={`/edit/${this.state.note.noteId}`}>edit</Link>
+          <Link to={`/delete/${this.state.note.noteId}`} onClick={this.handleDelete}>delete</Link>
         </div>
         <div className="viewNoteTitle">{this.state.note.title}</div>
         <div className="viewNoteText">{this.state.note.textBody}</div>

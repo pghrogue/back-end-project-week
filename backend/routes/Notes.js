@@ -52,7 +52,7 @@ router.post( '/create', (req, res) => {
   if( newNote.title && newNote.textBody ) {
     notes.insert(newNote)
       .then( (noteId) => {
-        res.json(noteId);
+        res.json({success: noteId});
       })
       .catch( (err) => {
         res.status(500).json({ error: "Could not post new note." });

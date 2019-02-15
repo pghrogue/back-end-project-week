@@ -22,7 +22,7 @@ class EditNote extends Component {
 
   /* Will need an axios call to pull the note data initially */
   componentDidMount() {
-    axios.get(`https://fe-notes.herokuapp.com/note/get/${this.props.match.params.id}`)
+    axios.get(`http://localhost:1234/note/get/${this.props.match.params.id}`)
       .then( (response) => {
         this.setState( () => ({ note: response.data, newTitle: response.data.title, newText: response.data.textBody, redirect: false }) )
       })
@@ -42,11 +42,12 @@ class EditNote extends Component {
     // Was having a major block using state.
     const newNote = Object.assign({}, this.state.note, {
       title: this.state.newTitle,
-      textBody: this.state.newText
+      textBody: this.state.newText,
+      userId: 1
     });
     
     // Send to axios
-    axios.put(`https://fe-notes.herokuapp.com/note/edit/${this.props.match.params.id}`, newNote )
+    axios.put(`http://localhost:1234/note/edit/${this.props.match.params.id}`, newNote )
       .then( (response) => {
         this.setState( () => ({ note: response.data, newTitle: "", newText: "", redirect: true }) )
       })
@@ -69,7 +70,7 @@ class EditNote extends Component {
   */
   render() {
     if ( this.state.redirect === true ) {
-      return (<Redirect to={`/note/${this.state.note._id}`} />);
+      return (<Redirect to={`/note/${this.state.note.noteId}`} />);
     }
 
     return (

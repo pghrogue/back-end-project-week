@@ -23,7 +23,7 @@ class AddNote extends Component {
 
   /* Will need an axios call to pull the note data initially */
   componentDidMount() {
-    axios.get(`https://fe-notes.herokuapp.com/note/get/${this.props.match.params.id}`)
+    axios.get(`http://localhost:1234/note/get/${this.props.match.params.id}`)
       .then( (response) => {
         this.setState( () => ({ note: response.data, newTitle: response.data.title, newText: response.data.textBody }) )
       })
@@ -43,15 +43,16 @@ class AddNote extends Component {
     // Was having a major block using state.
     const newNote = Object.assign({}, this.state.note, {
       title: this.state.newTitle,
-      textBody: this.state.newText
+      textBody: this.state.newText,
+      userId: 1
     });
     
     // Send to axios
-    axios.post(`https://fe-notes.herokuapp.com/note/create`, newNote )
+    axios.post(`http://localhost:1234/note/create`, newNote )
     .then( (response) => {
       console.log( "response:", response );
       this.setState( () => ({ 
-        note: { _id: response.data.success }, 
+        note: { noteId: response.data.success }, 
         newTitle: "", 
         newText: "", 
         redirect: true 
@@ -68,7 +69,7 @@ class AddNote extends Component {
   */
   render() {
     if ( this.state.redirect === true ) {
-      return (<Redirect to={`/note/${this.state.note._id}`} />);
+      return (<Redirect to={`/note/${this.state.note.noteId}`} />);
     }
 
     return (
