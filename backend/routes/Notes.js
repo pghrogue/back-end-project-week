@@ -5,6 +5,9 @@ const router = express.Router();
 // App requires:
 const notes = require('../data/helpers/noteModel');
 
+// Middleware
+const auth0 = require('../middleware/autho');
+
 /* ---------- Endpoints: ---------- */
 // Default route
 router.get( '/', (req, res) => {
@@ -12,7 +15,7 @@ router.get( '/', (req, res) => {
 });
 
 // GET list of notes: /note/get/all
-router.get( '/get/all', (req, res) => {
+router.get( '/get/all', auth0.checkJwt, (req, res) => {
   notes.get()
     .then( (list) => {
       if( list.length > 0 ){
