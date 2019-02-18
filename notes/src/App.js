@@ -7,7 +7,7 @@ import Notes from './Components/NoteList/Notes';
 import Note from './Components/Note/Note';
 import EditNote from './Components/EditNote/EditNote';
 import AddNote from './Components/EditNote/AddNote';
-import Callback from './Callback';
+import Callback from './Components/Authorization/Callback';
 
 /* Main entry point for the Lambda Notes app.
  * This will primarily contains the routes needed for our app

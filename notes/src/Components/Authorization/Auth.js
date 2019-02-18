@@ -3,9 +3,10 @@ import auth0 from 'auth0-js';
 class Auth {
   constructor() {
     this.auth0 = new auth0.WebAuth({
+      // the following three lines MUST be updated
       domain: 'darkrogue.auth0.com',
       audience: 'https://darkrogue.auth0.com/userinfo',
-      clientId: 'ZDkMG00xPpjgLLwLzN6vN1vGGuPFsPVp',
+      clientID: 'ZDkMG00xPpjgLLwLzN6vN1vGGuPFsPVp',
       redirectUri: 'http://localhost:3000/callback',
       responseType: 'id_token',
       scope: 'openid profile'
@@ -35,16 +36,15 @@ class Auth {
   }
 
   handleAuthentication() {
-    return new Promise( (resolve, reject) => {
-      this.auth0.parseHash( (err, authResult) => {
+    return new Promise((resolve, reject) => {
+      this.auth0.parseHash((err, authResult) => {
         if (err) return reject(err);
-        if( !authResult || !authResult.idToken) {
+        if (!authResult || !authResult.idToken) {
           return reject(err);
         }
         this.idToken = authResult.idToken;
         this.profile = authResult.idTokenPayload;
-
-        // set the time that the id token will expire at:
+        // set the time that the id token will expire at
         this.expiresAt = authResult.idTokenPayload.exp * 1000;
         resolve();
       });
@@ -52,13 +52,13 @@ class Auth {
   }
 
   signOut() {
-    // clear id token, profile and expiration
+    // clear id token, profile, and expiration
     this.idToken = null;
     this.profile = null;
     this.expiresAt = null;
   }
-};
+}
 
-const auth0Client = new Auth()
+const auth0Client = new Auth();
 
 export default auth0Client;

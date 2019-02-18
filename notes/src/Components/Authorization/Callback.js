@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import auth0Client from './Components/Authorization/Auth';
+import auth0Client from './Auth';
 
 class Callback extends Component {
   async componentDidMount() {
