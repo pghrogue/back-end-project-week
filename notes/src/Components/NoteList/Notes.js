@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import auth0Client from '../Authorization/Auth';
 
 import Note from './Note';
 import './Notes.css';
@@ -21,7 +22,7 @@ class Notes extends Component {
 
   // Pull all notes from the API
   componentDidMount() {
-    axios.get(`http://localhost:1234/note/get/all`)
+    axios.get(`http://localhost:1234/note/get/all`, { headers: { 'Authorization': `Bearer ${auth0Client.getIdToken()}`} })
       .then( (response) => {
         console.log('response data: ', response.data);
         this.setState( () => ({ notes: response.data }) )

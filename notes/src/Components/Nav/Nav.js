@@ -30,7 +30,7 @@ class Nav extends Component {
           auth0Client.isAuthenticated() &&
           <>
           <button className="navButton" onClick={() => {this.signOut()}}>Sign Out</button>
-          <Link to="/" className="navButton">View Your Notes</Link>
+          <Link to="/notes" className="navButton">View Your Notes</Link>
           <Link to="/add" className="navButton">+ Create New Note</Link>
           </>
         }
