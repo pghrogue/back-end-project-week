@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import auth0Client from './Components/Authorization/Auth';
 
 import './App.css';
@@ -54,4 +54,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

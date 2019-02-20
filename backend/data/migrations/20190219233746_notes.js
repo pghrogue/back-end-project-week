@@ -5,8 +5,10 @@ exports.up = function(knex, Promise) {
     table.integer('userId').unsigned().notNullable();
     table.string('title');
     table.string('textBody');
+    table.integer('groupId');
 
     table.foreign('userId').references('userId').inTable('users');
+    table.foreign('groupId').references('groupId').inTable('usergroups');
   });
 };
 
