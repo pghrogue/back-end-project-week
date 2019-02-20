@@ -11,4 +11,24 @@ describe('the /user routes', () => {
 
     expect(response.status).toEqual(200);
   });
+
+  describe('GET /user/', () => {
+    
+    test('/user/getByAuth returns userId', () => {});
+
+    test('/user/getByAuth returns 0 if not found', () => {});
+
+    test('/user/:id returns user', () => {});
+
+    test('/user/:id returns status 404 if not found', () => {});
+
+  }); // end user/get
+
+  describe('POST /user/', () => {
+
+    test('/user inserts new userdata', () => {});
+
+    test('missing authId returns error', () => {});
+  }); // end user/post
+
 }); // end user route
