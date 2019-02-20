@@ -15,7 +15,7 @@ router.get( '/', (req, res) => {
 });
 
 // GET list of notes: /note/get/all
-router.get( '/get/all', auth0.checkJwt, (req, res) => {
+router.get( '/get/all', (req, res) => {
   notes.get()
     .then( (list) => {
       if( list.length > 0 ){
