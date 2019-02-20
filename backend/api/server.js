@@ -8,6 +8,7 @@ const helmet = require('helmet');
 
 // Route requires:
 const noteRouter = require('../routes/Notes');
+const userRouter = require('../routes/Users');
 
 // Server:
 const server = express();
@@ -25,6 +26,7 @@ server.use(
 
 /* ---------- Routes: ---------- */
 server.use('/note', noteRouter);
+server.use('/user', userRouter);
 
 // Test base route:
 server.get('/', (req, res) => {
