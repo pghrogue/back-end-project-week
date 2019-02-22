@@ -91,6 +91,7 @@ describe('the /note routes', () => {
         "textBody": "editted body",
         "title": "editted",
         "userId": 1,
+        "groupId": null
       };
 
       const response = await request(server)
