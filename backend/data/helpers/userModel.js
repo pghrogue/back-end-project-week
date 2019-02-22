@@ -15,5 +15,11 @@ module.exports = {
       return "0";
     else
       return result;
+  },
+
+  insert: function(user) {
+    return db('users')
+      .insert(user)
+      .then( ([id]) => this.get(id) );
   }
 };

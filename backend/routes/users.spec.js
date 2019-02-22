@@ -65,10 +65,52 @@ describe('the /user routes', () => {
   }); // end user/get
 
   describe('POST /user/', () => {
+    afterEach( async () => {
+      await db.seed.run();
+    });
 
-    test('/user inserts new userdata', () => {});
+    test('/user/add inserts new userdata', async () => {
+      const body = { "authId": 'abcd123', email: 'abcd456@def.com' };
 
-    test('missing authId returns error', () => {});
+      const response = await request(server)
+        .post('/user/add')
+        .send(body);
+
+      expect(response.status).toEqual(200);
+      expect(response.type).toBe('application/json');
+      expect(response.body).not.toEqual({ error: "Missing authId or Email." });
+    });
+
+    test('/user/add returns new user', async () => {
+      const body = { "authId": 'abcd123', email: 'abcd456@def.com' };
+      const expected = {
+        "authId": "abcd123",
+        "email": "abcd456@def.com",
+        "userId": 6
+      };
+
+      const response = await request(server)
+        .post('/user/add')
+        .send(body);
+
+      expect(response.status).toEqual(200);
+      expect(response.type).toBe('application/json');
+      expect(response.body).toEqual(expected);
+      expect(response.body).not.toEqual({ error: "Could not add new user." });
+    });
+
+    test('missing authId returns error', async () => {
+      const body = {};
+
+      const response = await request(server)
+        .post('/user/add')
+        .send(body);
+
+      expect(response.status).toEqual(400);
+      expect(response.type).toBe('application/json');
+      expect(response.body).toEqual({ error: "Missing authId or Email." });
+
+    });
   }); // end user/post
 
 }); // end user route

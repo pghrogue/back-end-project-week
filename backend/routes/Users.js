@@ -53,6 +53,26 @@ router.get( '/:id', (req, res) => {
   // end-get
 });
 
+// Post new user data
+router.post( '/add', (req, res) => {
+  const newUserData = req.body;
+
+  // Check for empty fields:
+  if( newUserData.authId && newUserData.email ){
+    user.insert(newUserData)
+      .then( (newUser) => {
+        res.json(newUser);
+      })
+      .catch( (err) => {
+        res.status(500).json({ error: "Could not add new user." });
+      });
+    // end-user.insert
+  } else {
+    res.status(400).json({ error: "Missing authId or Email." });
+  }
+
+});
+
 
 /* ---------- Export ---------- */
 module.exports = router;
