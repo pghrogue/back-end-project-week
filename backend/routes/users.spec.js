@@ -30,12 +30,12 @@ describe('the /user routes', () => {
   
     });
 
-    test('/user/getByAuth returns nothing if not found', async () => {
+    test('/user/getByAuth returns 0 if not found', async () => {
       const response = await request(server).get('/user/getByAuth/abcd5');
       
-      expect(response.status).toEqual(200);
+      expect(response.status).toEqual(404);
       expect(response.type).toBe('application/json');
-      expect(response.body).toEqual("");
+      expect(response.body).toEqual(0);
       expect(response.body).not.toEqual({ error: "User information could not be retrieved." });
   
     });
@@ -53,7 +53,14 @@ describe('the /user routes', () => {
       expect(response.body).not.toEqual({ error: "User information could not be retrieved." });
     });
 
-    test('/user/:id returns status 404 if not found', () => {});
+    test('/user/:id returns status 404 if not found', async () => {
+      const response = await request(server).get('/user/5');
+
+      expect(response.status).toEqual(404);
+      expect(response.type).toBe('application/json');
+      expect(response.body).toEqual(0);
+      expect(response.body).not.toEqual({ error: "User information could not be retrieved." });
+    });
 
   }); // end user/get
 

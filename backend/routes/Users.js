@@ -21,11 +21,14 @@ router.get( '/getByAuth/:id', (req, res) => {
   console.log("in router get");
   user.getByAuth(id)
     .then( (users) => {
-      //console.log("note: ", note);
-      res.json(users);
+      if( users ) {
+        res.json(users);
+      } else {
+        res.status(404).json(0);
+      }
     })
     .catch( (err) => {
-      res.status(500).json({ error: `Note ${id} could not be found.` });
+      res.status(500).json({ error: "User information could not be retrieved." });
     });
   // end-getByAuth
 });
@@ -36,10 +39,16 @@ router.get( '/:id', (req, res) => {
 
   user.get(id)
     .then( (users) => {
-      res.json(users);
+      if( users )
+      {  
+        res.json(users);
+      }
+      else {
+        res.status(404).json(0);
+      }
     })
     .catch( (err) => {
-      res.status(500).json({ error: `Note ${id} could not be found.` });
+      res.status(500).json({ error: "User information could not be retrieved." });
     });
   // end-get
 });
