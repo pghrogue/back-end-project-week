@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import './Nav.css';
-import auth0Client from '../Authorization/Auth';
 
 /* Left side bar that remains open at all times.
  * This has the links to view & create
@@ -13,23 +12,18 @@ class Nav extends Component {
     super(props);
   };
   
-  signOut = () => {
-    auth0Client.signOut();
-    this.props.history.replace('/');
-  };
-
   render() {
     return (
       <div className="Nav">
         <h1>Lambda Notes</h1>
         {
-          !auth0Client.isAuthenticated() &&
-          <button className="navButton" onClick={auth0Client.signIn}>Sign In</button>  
+          // !auth0Client.isAuthenticated() &&
+          <button className="navButton" >Sign In</button>  
         }
         {
-          auth0Client.isAuthenticated() &&
+          // auth0Client.isAuthenticated() &&
           <>
-          <button className="navButton" onClick={() => {this.signOut()}}>Sign Out</button>
+          <button className="navButton" >Sign Out</button>
           <Link to="/notes" className="navButton">View Your Notes</Link>
           <Link to="/add" className="navButton">+ Create New Note</Link>
           </>

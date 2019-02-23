@@ -1,0 +1,9 @@
+.appHome {
+  width: 100%;
+  min-height: 600px;
+  background-color: whitesmoke;
+  border: 1px solid gray;
+  padding: 20px;
+  color: #585858;
+  font-size: small;
+}
